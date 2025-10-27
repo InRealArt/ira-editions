@@ -2,28 +2,33 @@
 
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
 import { useRef, useState } from 'react'
+import Image from 'next/image'
 
 interface PhoneMockup {
   title: string
   description: string
   color: string
+  image: string
 }
 
 const mockups: PhoneMockup[] = [
   {
     title: "Portrait d'artiste : Création et réflexion",
     description: "Découvrez les artistes qui façonnent le monde de l'art contemporain...",
-    color: "from-purple-500 to-blue-600"
+    color: "from-purple-500 to-blue-600",
+    image: "/mockups/1.png"
   },
   {
     title: "Techniques et savoir-faire",
     description: "Explorez les secrets des techniques artistiques modernes...",
-    color: "from-pink-500 to-rose-600"
+    color: "from-pink-500 to-rose-600",
+    image: "/mockups/2.png"
   },
   {
     title: "Marché de l'art contemporain",
     description: "Analyse et tendances du marché de l'art d'aujourd'hui...",
-    color: "from-orange-500 to-amber-600"
+    color: "from-orange-500 to-amber-600",
+    image: "/mockups/3.png"
   }
 ]
 
@@ -42,8 +47,8 @@ export default function AnimatedPhoneMockups() {
   })
 
   return (
-    <div ref={containerRef} className="w-full h-[400vh] flex justify-center">
-      <div className="sticky top-24 w-full max-w-[400px] flex justify-center h-screen">
+    <div ref={containerRef} className="w-full h-[350vh] flex justify-center md:mb-32">
+      <div className="sticky top-24 w-full max-w-[400px] flex justify-center h-[80vh] pt-8">
         <div className="relative w-full h-full">
           {mockups.map((mockup, index) => (
             <PhoneMockupCard
@@ -75,21 +80,21 @@ function PhoneMockupCard({
   totalMockups: number
 }) {
   // Calculate when this mockup should be visible
-  // Use more of the scroll space to make animation more visible
-  const sectionStart = (index * 0.33)
+  // Give more scroll space for the last mockup
+  const sectionStart = index / (totalMockups + 0.3)
   const sectionEnd = index === totalMockups - 1 
-    ? 1.0  // Last mockup animation completes at full scroll
-    : (index + 1) * 0.33
+    ? 0.85  // Last mockup gets more scroll
+    : (index + 1) / (totalMockups + 0.3)
   
-  // Y position: starts from below, slides up to center
+  // Y position: starts from below, slides up to a higher position (not at 0)
   const y = useTransform(scrollProgress, (latest: number) => {
     if (latest < sectionStart) return 250  // Start further below screen
-    if (latest > sectionEnd) return 0      // Stay at final position once shown
+    if (latest > sectionEnd) return -100   // Final position higher up to clear footer
     
     const progress = (latest - sectionStart) / (sectionEnd - sectionStart)
     // Ease out function for smoother animation
     const eased = 1 - Math.pow(1 - progress, 3)
-    return 250 * (1 - eased)  // Slide from 250 to 0
+    return 250 - (350 * eased)  // Slide from 250 to -100
   })
 
   // Opacity: fade in very quickly, starting before the element is visible
@@ -130,7 +135,7 @@ function PhoneMockupCard({
         right: 0
       }}
     >
-      <div className="aspect-[10/19] bg-gradient-to-b from-gray-800 to-gray-900 rounded-[3rem] p-4 shadow-2xl">
+      <div className="aspect-[9/19] bg-gradient-to-b from-gray-800 to-gray-900 rounded-[3rem] p-4 shadow-2xl">
         {/* Phone Screen */}
         <div className="w-full h-full bg-black rounded-[2rem] overflow-hidden">
           {/* Status Bar */}
@@ -141,31 +146,15 @@ function PhoneMockupCard({
             </div>
           </div>
           
-          {/* App Content */}
-          <div className="bg-black h-[calc(100%-2rem)] p-4">
-            <div className="mb-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-white text-sm font-bold">IRA</span>
-                <div className="flex gap-2">
-                  <div className="w-2 h-2 bg-white rounded-full"></div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Mock Article Image */}
-            <div className={`w-full aspect-video bg-gradient-to-br ${mockup.color} rounded-lg mb-3 flex items-center justify-center`}>
-              <div className="text-white text-4xl">🎨</div>
-            </div>
-            
-            {/* Mock Article Text */}
-            <div className="space-y-2">
-              <h2 className="text-white font-bold text-base leading-tight">
-                {mockup.title}
-              </h2>
-              <p className="text-gray-300 text-xs leading-relaxed">
-                {mockup.description}
-              </p>
-            </div>
+          {/* App Content - Full Image */}
+          <div className="bg-black h-[calc(100%-2rem)] relative">
+            <Image
+              src={mockup.image}
+              alt={mockup.title}
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </div>
         </div>
       </div>

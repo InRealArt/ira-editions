@@ -11,9 +11,9 @@ export default function Home() {
           <span className="text-black font-bold text-3xl leading-none mt-0.5">Editions</span>
         </div>
         <nav className="flex gap-6 text-black font-medium text-base">
-          <a href="#apropos" className="hover:opacity-70 transition-opacity">À propos</a>
-          <a href="#manifeste" className="hover:opacity-70 transition-opacity">Manifeste</a>
-          <a href="#rejoindre" className="hover:opacity-70 transition-opacity">Nous rejoindre</a>
+          <a target='_blank' href="https://www.inrealart.com/about" className="hover:opacity-70 transition-opacity">À propos</a>
+          <a target='_blank' href="https://www.inrealart.com/manifest" className="hidden md:block hover:opacity-70 transition-opacity">Manifeste</a>
+          <a target='_blank' href="https://calendly.com/teaminrealart/demande-de-rdv" className="hidden md:block hover:opacity-70 transition-opacity">Nous rejoindre</a>
         </nav>
       </header>
 
@@ -61,9 +61,9 @@ export default function Home() {
             © 2025 IRA Editions. Tous droits réservés.
           </p>
           <div className="flex gap-6 text-sm text-black/60">
-            <a href="#" className="hover:text-black transition-colors">Mentions légales</a>
-            <a href="#" className="hover:text-black transition-colors">Politique de confidentialité</a>
-            <a href="https://www.inrealart.com" className="hover:text-black transition-colors">InRealArt</a>
+            <a target='_blank' href="https://www.inrealart.com/legal" className="hover:text-black transition-colors">Mentions légales</a>
+            <a target='_blank' href="https://www.inrealart.com/terms" className="hover:text-black transition-colors">Politique de confidentialité</a>
+            <a target='_blank' href="https://www.inrealart.com" className="hover:text-black transition-colors">InRealArt</a>
           </div>
         </div>
       </footer>

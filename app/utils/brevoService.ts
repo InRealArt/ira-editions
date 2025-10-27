@@ -56,7 +56,7 @@ export async function addContactToBrevo(options: BrevoContactOptions): Promise<{
       body: JSON.stringify({
         email,
         listIds: [listId],
-        updateEnabled: true, // Met à jour le contact s'il existe déjà
+        updateEnabled: false, // Ne met pas à jour le contact s'il existe déjà
         attributes: {
           FIRSTNAME: firstName,
           LASTNAME: lastName,
@@ -71,7 +71,18 @@ export async function addContactToBrevo(options: BrevoContactOptions): Promise<{
       const errorData = await brevoResponse.json().catch(() => ({}));
 
       // Gestion des erreurs spécifiques de Brevo
+      // Code 400 avec duplicate_parameter = contact déjà existant
       if (brevoResponse.status === 400 && errorData.code === 'duplicate_parameter') {
+        return {
+          success: true,
+          message: language === 'en'
+            ? 'Contact already exists'
+            : 'Contact déjà existant'
+        };
+      }
+      
+      // Code 204 = contact mis à jour (déjà existant, updatenabled a fonctionné)
+      if (brevoResponse.status === 204) {
         return {
           success: true,
           message: language === 'en'

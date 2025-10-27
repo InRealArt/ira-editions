@@ -25,11 +25,17 @@ export default function NewsletterForm() {
 
       if (result.success) {
         setIsSuccess(true)
-        setMessage(result.message)
+        setMessage('Merci pour votre inscription ! Vérifiez votre boîte mail pour confirmer.')
         setEmail('')
       } else {
         setIsSuccess(false)
-        setMessage(result.message)
+        // Check if it's a duplicate error
+        if (result.message.includes('déjà existant') || result.message.includes('Contact already exists')) {
+          setMessage('Merci ! Vous êtes déjà inscrit à notre newsletter.')
+          setIsSuccess(true) // Show as success since it's not really an error
+        } else {
+          setMessage(result.message || 'Une erreur est survenue. Veuillez réessayer.')
+        }
       }
     } catch (error) {
       setIsSuccess(false)
