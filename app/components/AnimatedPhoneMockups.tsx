@@ -24,12 +24,6 @@ const mockups: PhoneMockup[] = [
     color: "from-pink-500 to-rose-600",
     image: "/mockups/2.png"
   },
-  {
-    title: "Marché de l'art contemporain",
-    description: "Analyse et tendances du marché de l'art d'aujourd'hui...",
-    color: "from-orange-500 to-amber-600",
-    image: "/mockups/3.png"
-  }
 ]
 
 export default function AnimatedPhoneMockups() {
