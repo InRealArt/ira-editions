@@ -1,18 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Unbounded:wght@300;400;700&family=Montserrat:wght@300;400&family=Bricolage+Grotesque:wght@400;700&display=swap');
+
 @import "tailwindcss";
 
+/* =============================================
+   IN REAL ART — Design System
+   Galerie d'art contemporaine, style luxe épuré
+   ============================================= */
+
 :root {
-  --background: #faf9f6;
-  --foreground: #000000;
+  --background:      #131313;
+  --card:            #1d1c1c;
+  --text:            #ffffff;
+  --gray-text:       #9ca3af;
+  --border-color:    rgba(255, 255, 255, 0.1);
+  --shadow-color:    rgba(255, 255, 255, 0.08);
+  --purple:          #6052ff;
+  --gold-accent:     #b89c72;
+  --soft-gray:       #1f1f1f;
+  --border-light:    #2a2a2a;
+  --background-grey: #1a1a1a;
+  --ink-black:       #ffffff;
+  --gradient-from:   #111827;
+  --gradient-to:     #1f2937;
+
+  --font-heading:    'Cormorant Garamond', serif;
+  --font-display:    'Unbounded', sans-serif;
+  --font-body:       'Montserrat', sans-serif;
+  --font-hero:       'Bricolage Grotesque', serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+[data-theme='light'] {
+  --background:      #ffffff;
+  --card:            #fbfbfb;
+  --text:            #000000;
+  --gray-text:       #666666;
+  --border-color:    #eeeeee;
+  --shadow-color:    rgba(0, 0, 0, 0.08);
+  --soft-gray:       #f8f8f8;
+  --border-light:    #eeeeee;
+  --background-grey: #fbfbfb;
+  --ink-black:       #000000;
+  --gradient-from:   #f8f8f8;
+  --gradient-to:     #eeeeee;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+
+p, span, li {
+  font-family: var(--font-body);
+  font-weight: 300;
+}
+
+.serif-italic {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 300;
+}
+
+.display {
+  font-family: var(--font-display);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+}
+
+.btn-cta {
+  padding: 0.9rem 1.8rem;
+  border: 1px solid var(--ink-black);
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  display: inline-block;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-cta:hover {
+  background: var(--ink-black);
+  color: var(--background);
+}
+
+.text-gold   { color: #b89c72; }
+.border-gold { border-color: #b89c72; }
+
+.artwork-container { overflow: hidden; }
+.artwork-container img {
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.artwork-container:hover img { transform: scale(1.03); }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-right {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-up    { animation: fade-up    0.8s ease-out 0.2s  both; }
+.animate-fade-up-d  { animation: fade-up    0.8s ease-out 0.38s both; }
+.animate-fade-right { animation: fade-right 0.9s ease-out 0.38s both; }

@@ -1,73 +1,192 @@
 import NewsletterForm from './components/NewsletterForm'
 import StaticPhoneMockup from './components/StaticPhoneMockup'
 import MobileMenu from './components/MobileMenu'
+import NavLink from './components/NavLink'
+import ThemeToggle from './components/ThemeToggle'
+
+const navLinks = [
+  { label: 'À propos', href: 'https://www.inrealart.com/about' },
+  { label: 'Manifeste', href: 'https://www.inrealart.com/manifest' },
+  { label: 'Nous rejoindre', href: 'https://calendly.com/teaminrealart/demande-de-rdv' },
+]
+
+const footerLinks = [
+  { label: 'Mentions légales', href: 'https://www.inrealart.com/legal' },
+  { label: 'Confidentialité', href: 'https://www.inrealart.com/terms' },
+  { label: 'InRealArt', href: 'https://www.inrealart.com' },
+]
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#faf9f6] flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: 'var(--background)', color: 'var(--text)' }}>
+
       {/* Header */}
-      <header className="w-full px-8 py-6 flex justify-between items-center max-w-7xl mx-auto">
-        <div className="flex flex-col">
-          <span className="text-black font-bold text-3xl leading-none">IRA</span>
-          <span className="text-black font-bold text-3xl leading-none mt-0.5">Editions</span>
+      <header
+        className="w-full px-8 lg:px-16 py-7 flex justify-between items-center"
+        style={{ borderBottom: '1px solid var(--border-light)' }}
+      >
+        <div className="flex flex-col leading-none">
+          <span style={{
+            fontFamily: 'var(--font-heading)',
+            fontWeight: 300,
+            fontSize: '1.75rem',
+            letterSpacing: '0.12em',
+            color: 'var(--text)',
+            lineHeight: 1,
+          }}>
+            IRA
+          </span>
+          <span style={{
+            fontFamily: 'var(--font-display)',
+            fontWeight: 300,
+            fontSize: '0.55rem',
+            letterSpacing: '0.45em',
+            textTransform: 'uppercase',
+            color: 'var(--gold-accent)',
+            marginTop: '0.3rem',
+            lineHeight: 1,
+          }}>
+            Éditions
+          </span>
         </div>
-        <nav className="hidden md:flex gap-6 text-black font-medium text-base">
-          <a target='_blank' href="https://www.inrealart.com/about" className="hover:opacity-70 transition-opacity">À propos</a>
-          <a target='_blank' href="https://www.inrealart.com/manifest" className="hover:opacity-70 transition-opacity">Manifeste</a>
-          <a target='_blank' href="https://calendly.com/teaminrealart/demande-de-rdv" className="hover:opacity-70 transition-opacity">Nous rejoindre</a>
+
+        <nav className="hidden md:flex gap-10 items-center">
+          {navLinks.map(({ label, href }) => (
+            <NavLink key={label} href={href}>{label}</NavLink>
+          ))}
         </nav>
-        <MobileMenu />
+
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
+          <MobileMenu />
+        </div>
       </header>
 
-      {/* Main Content */}
-      <div className="bg-gray-200 w-full">
-        <main className="flex-1 px-8 py-12 flex flex-col lg:flex-row gap-12 max-w-7xl mx-auto w-full relative items-start lg:max-h-[700px] lg:overflow-hidden">
-          {/* Right Section - Content (shows first on mobile) */}
-          <div className="w-full lg:w-1/2 flex flex-col gap-2 lg:self-start order-1 lg:order-2">
-            <h1 className="text-black font-bold text-3xl lg:text-4xl leading-tight">
+      {/* Main */}
+      <main className="flex-1 w-full px-8 lg:px-16 py-16 lg:py-24 flex flex-col lg:flex-row gap-16 lg:gap-20 items-start max-w-7xl mx-auto w-full">
+
+        {/* Left — Phone Mockup */}
+        <div className="w-full lg:w-5/12 flex justify-center lg:justify-start order-2 lg:order-1 animate-fade-up">
+          <StaticPhoneMockup />
+        </div>
+
+        {/* Right — Content */}
+        <div className="w-full lg:w-7/12 flex flex-col gap-0 lg:self-center order-1 lg:order-2">
+
+          <span className="display animate-fade-up" style={{ color: 'var(--gold-accent)', marginBottom: '2rem' }}>
+            Lettre d&apos;art indépendante
+          </span>
+
+          <div className="animate-fade-up" style={{ marginBottom: '2.5rem' }}>
+            <h1 style={{
+              fontFamily: 'var(--font-heading)',
+              fontWeight: 300,
+              fontSize: 'clamp(2.4rem, 5vw, 4rem)',
+              lineHeight: 1.15,
+              color: 'var(--text)',
+              margin: 0,
+            }}>
               Des mots qui éveillent.
             </h1>
-            <h2 className="text-black font-bold text-3xl lg:text-4xl leading-tight">
+            <h2 style={{
+              fontFamily: 'var(--font-heading)',
+              fontStyle: 'italic',
+              fontWeight: 300,
+              fontSize: 'clamp(2.4rem, 5vw, 4rem)',
+              lineHeight: 1.15,
+              color: 'var(--gold-accent)',
+              margin: '0.2em 0',
+            }}>
               Des œuvres qui résonnent.
             </h2>
-            <h3 className="text-black font-bold text-3xl lg:text-4xl leading-tight">
+            <h3 style={{
+              fontFamily: 'var(--font-heading)',
+              fontWeight: 300,
+              fontSize: 'clamp(2.4rem, 5vw, 4rem)',
+              lineHeight: 1.15,
+              color: 'var(--text)',
+              margin: 0,
+            }}>
               Des esprits qui s&apos;élèvent.
             </h3>
+          </div>
 
-            <p className="text-black text-lg leading-relaxed mt-4">
+          <div className="animate-fade-up-d" style={{
+            width: '3rem',
+            height: '1px',
+            background: 'var(--gold-accent)',
+            marginBottom: '2rem',
+          }} />
+
+          <div className="animate-fade-up-d" style={{ marginBottom: '2.5rem' }}>
+            <p style={{
+              fontFamily: 'var(--font-body)',
+              fontWeight: 300,
+              fontSize: '0.95rem',
+              lineHeight: 1.8,
+              color: 'var(--gray-text)',
+              margin: '0 0 0.75rem',
+            }}>
               Rejoignez la communauté des lecteurs qui font vivre la culture autrement.
             </p>
-            <p className="text-black text-lg leading-relaxed">
+            <p style={{
+              fontFamily: 'var(--font-body)',
+              fontWeight: 300,
+              fontSize: '0.95rem',
+              lineHeight: 1.8,
+              color: 'var(--gray-text)',
+              margin: 0,
+            }}>
               Des centaines de lecteurs déjà conquis par nos lettres.
             </p>
-
-            <div className="mt-6">
-              <NewsletterForm />
-            </div>
-
-            <p className="text-sm text-black/70 leading-relaxed mt-2">
-              Publication indépendante et sans publicité, IRA Éditions respecte votre liberté autant que votre lecture.
-              Vos données ne seront jamais partagées, et votre désinscription reste possible à tout instant.
-            </p>
           </div>
 
-          {/* Left Section - Static Phone Mockup (shows second on mobile) */}
-          <div className="w-full lg:w-1/2 flex justify-center lg:justify-start order-2 lg:order-1">
-            <StaticPhoneMockup />
+          <div className="animate-fade-right" style={{ marginBottom: '1.5rem' }}>
+            <NewsletterForm />
           </div>
-        </main>
-      </div>
+
+          <p className="animate-fade-right" style={{
+            fontFamily: 'var(--font-body)',
+            fontWeight: 300,
+            fontSize: '0.65rem',
+            letterSpacing: '0.05em',
+            lineHeight: 1.8,
+            color: 'rgba(255,255,255,0.2)',
+            margin: 0,
+          }}>
+            Publication indépendante et sans publicité. Vos données ne seront jamais partagées,
+            et votre désinscription reste possible à tout instant.
+          </p>
+        </div>
+      </main>
 
       {/* Footer */}
-      <footer className="w-full px-8 py-6 border-t border-black/10 mt-12 max-w-7xl mx-auto">
+      <footer
+        className="w-full px-8 lg:px-16 py-8"
+        style={{ borderTop: '1px solid var(--border-light)' }}
+      >
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-black/60">
-            © 2025 IRA Editions. Tous droits réservés.
+          <p style={{
+            fontFamily: 'var(--font-body)',
+            fontWeight: 300,
+            fontSize: '0.6rem',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: 'var(--gray-text)',
+            margin: 0,
+          }}>
+            © 2025 IRA Éditions — Tous droits réservés
           </p>
-          <div className="flex gap-6 text-sm text-black/60">
-            <a target='_blank' href="https://www.inrealart.com/legal" className="hover:text-black transition-colors">Mentions légales</a>
-            <a target='_blank' href="https://www.inrealart.com/terms" className="hover:text-black transition-colors">Politique de confidentialité</a>
-            <a target='_blank' href="https://www.inrealart.com" className="hover:text-black transition-colors">InRealArt</a>
+          <div className="flex gap-8">
+            {footerLinks.map(({ label, href }) => (
+              <NavLink
+                key={label}
+                href={href}
+                style={{ fontSize: '0.6rem', letterSpacing: '0.2em' }}
+              >
+                {label}
+              </NavLink>
+            ))}
           </div>
         </div>
       </footer>
